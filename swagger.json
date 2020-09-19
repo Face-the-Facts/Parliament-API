@@ -35,6 +35,26 @@
             "$ref" : "#/components/responses/400Error"
           }
         }
+      },
+      "post" : {
+        "description" : "Create a new Candidate",
+        "operationId" : "postCandidate",
+        "requestBody" : {
+          "description" : "Optional description in *Markdown*",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Candidate"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "201" : {
+            "$ref" : "#/components/responses/201Created"
+          }
+        }
       }
     },
     "/candidates/{candidateId}" : {
@@ -74,6 +94,40 @@
           },
           "404" : {
             "description" : "A user with the specified ID was not found"
+          }
+        }
+      }
+    },
+    "/parties" : {
+      "get" : {
+        "description" : "Returns a collection of Parties",
+        "opertationId" : "getParties",
+        "parameters" : [ {
+          "name" : "partyId",
+          "in" : "query",
+          "description" : "The ID of the Political Party to return",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json:" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Party"
+                }
+              }
+            },
+            "links" : {
+              "GetPartyMembers" : {
+                "operationId" : "GetCandidatesByParty",
+                "parameters" : {
+                  "politicalParty" : "$response.body#/id"
+                }
+              }
+            }
           }
         }
       }
@@ -162,6 +216,21 @@
               "properties" : {
                 "message" : {
                   "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "201Created" : {
+        "description" : "Created",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "id" : {
+                  "type" : "integer"
                 }
               }
             }
