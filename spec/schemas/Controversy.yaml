@@ -1,0 +1,15 @@
+required:
+- candidate
+- id
+- label
+properties:
+  id:
+    type: string
+    format: uuid
+    readOnly: true
+  label:
+    type: string
+    example: Augustus Intelligence
+  candidate:
+    $ref: './Candidate.yaml'
+description: Controversy related to a candidate

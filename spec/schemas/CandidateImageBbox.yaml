@@ -1,0 +1,18 @@
+type: object
+properties:
+  minX:
+    type: number
+    format: double
+    example: 0
+  maxX:
+    type: number
+    format: double
+    example: 2746
+  minY:
+    type: number
+    format: double
+    example: 0
+  maxY:
+    type: number
+    format: double
+    example: 2746

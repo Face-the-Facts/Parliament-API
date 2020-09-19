@@ -1,0 +1,39 @@
+get:
+  tags:
+  - Election
+  description: Get a list of elections
+  operationId: getElection
+  parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+      format: uuid
+  - name: limit
+    in: query
+    description: Limits the number of items on a page
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  - name: offset
+    in: query
+    description: Specifies the page number of the artists to be displayed
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../schemas/ElectionResponse.yaml'
+    "404":
+      $ref: '../../responses/404NotFound.yaml'

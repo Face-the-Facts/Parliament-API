@@ -1,0 +1,69 @@
+get:
+  tags:
+  - Election
+  description: Get a list of elections
+  operationId: getElections
+  parameters:
+  - name: limit
+    in: query
+    description: Limits the number of items on a page
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  - name: offset
+    in: query
+    description: Specifies the page number of the artists to be displayed
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '../../schemas/ElectionResponse.yaml'
+    "404":
+      $ref: '../../responses/404NotFound.yaml'
+post:
+  tags:
+  - Election
+  description: Add a new election
+  operationId: postElection
+  parameters:
+  - name: limit
+    in: query
+    description: Limits the number of items on a page
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  - name: offset
+    in: query
+    description: Specifies the page number of the artists to be displayed
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  requestBody:
+    description: Election request body
+    content:
+      application/json:
+        schema:
+          $ref: '../../schemas/ElectionRequest.yaml'
+    required: true
+  responses:
+    "201":
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '../../schemas/ElectionResponse.yaml'

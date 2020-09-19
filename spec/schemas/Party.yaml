@@ -1,0 +1,12 @@
+required:
+- id
+type: object
+properties:
+  id:
+    type: integer
+    readOnly: true
+    example: 1
+  name:
+    type: string
+    example: CDU/CSU
+description: Political Party

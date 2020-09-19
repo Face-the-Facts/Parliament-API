@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  gh_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+          npm run html
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -f ./docs
+          git commit -m "Generated docs"
+          git push
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs 
