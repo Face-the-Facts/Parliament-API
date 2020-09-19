@@ -1,0 +1,238 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "version" : "v0.0.1-oas3",
+    "title" : "Parliament REST API",
+    "description" : "RESTful API for Candidates, Constituencies, Parliaments, Polls, Votes etc."
+  },
+  "paths" : {
+    "/candidates" : {
+      "get" : {
+        "description" : "Returns a list of candidates",
+        "operationId" : "getCandidates",
+        "parameters" : [ {
+          "$ref" : "#/components/parameters/PageLimit"
+        }, {
+          "$ref" : "#/components/parameters/PageNumber"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successfully returned a list of candidates",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Candidate"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400Error"
+          }
+        }
+      }
+    },
+    "/candidates/{candidateId}" : {
+      "get" : {
+        "description" : "Returns a candidate by ID",
+        "operationId" : "getCandidate",
+        "parameters" : [ {
+          "name" : "candidateId",
+          "in" : "path",
+          "required" : true,
+          "description" : "The ID of the candidate to return",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "links" : {
+              "GetCandidateParty" : {
+                "operationId" : "getParty",
+                "parameters" : {
+                  "partyId" : "$response.body#/party"
+                }
+              }
+            },
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Candidate"
+                }
+              }
+            }
+          },
+          "400" : {
+            "$ref" : "#/components/responses/400Error"
+          },
+          "404" : {
+            "description" : "A user with the specified ID was not found"
+          }
+        }
+      }
+    },
+    "/parties/{partyId}" : {
+      "get" : {
+        "description" : "Returns a Political Party by ID",
+        "opertationId" : "getParty",
+        "parameters" : [ {
+          "name" : "partyId",
+          "in" : "path",
+          "required" : true,
+          "description" : "The ID of the Political Party to return",
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Party"
+                }
+              }
+            },
+            "links" : {
+              "GetPartyMembers" : {
+                "operationId" : "GetCandidatesByParty",
+                "parameters" : {
+                  "politicalParty" : "$response.body#/id"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/Face-the-Facts/ParliamentAPI/v0.0.1"
+  } ],
+  "components" : {
+    "parameters" : {
+      "PageLimit" : {
+        "name" : "limit",
+        "in" : "query",
+        "description" : "Limits the number of items on a page",
+        "schema" : {
+          "type" : "integer"
+        }
+      },
+      "PageNumber" : {
+        "name" : "offset",
+        "in" : "query",
+        "description" : "Specifies the page number of the artists to be displayed",
+        "schema" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "responses" : {
+      "400Error" : {
+        "description" : "Invalid request",
+        "content" : {
+          "*/*" : {
+            "schema" : {
+              "type" : "object",
+              "properties" : {
+                "message" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas" : {
+      "Candidate" : {
+        "description" : "Electoral Candidate for political office",
+        "type" : "object",
+        "required" : [ "candidateId" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "readOnly" : true
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "image" : {
+            "type" : "object",
+            "properties" : {
+              "src" : {
+                "type" : "string"
+              },
+              "bbox" : {
+                "type" : "object",
+                "properties" : {
+                  "minX" : {
+                    "type" : "number",
+                    "format" : "double"
+                  },
+                  "maxX" : {
+                    "type" : "number",
+                    "format" : "double"
+                  },
+                  "minY" : {
+                    "type" : "number",
+                    "format" : "double"
+                  },
+                  "maxY" : {
+                    "type" : "number",
+                    "format" : "double"
+                  }
+                }
+              }
+            }
+          },
+          "party" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "Constituency" : {
+        "description" : "Electoral Constituency"
+      },
+      "Party" : {
+        "description" : "Political Party",
+        "type" : "object",
+        "required" : [ "id" ],
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "readOnly" : true
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Poll" : {
+        "description" : "Parliamentary Poll"
+      },
+      "Vote" : {
+        "description" : "Vote on Parliamentary Poll",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "readOnly" : true
+          },
+          "candidate" : {
+            "type" : "integer"
+          },
+          "poll" : {
+            "type" : "integer"
+          }
+        }
+      }
+    }
+  }
+}
