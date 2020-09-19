@@ -14,12 +14,14 @@
           "$ref" : "#/components/parameters/PageLimit"
         }, {
           "$ref" : "#/components/parameters/PageNumber"
+        }, {
+          "$ref" : "#/components/parameters/PartyId"
         } ],
         "responses" : {
           "200" : {
             "description" : "Successfully returned a list of candidates",
             "content" : {
-              "*/*" : {
+              "application/json:" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
@@ -60,7 +62,7 @@
               }
             },
             "content" : {
-              "*/*" : {
+              "application/json:" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Candidate"
                 }
@@ -93,7 +95,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json:" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Party"
                 }
@@ -132,13 +134,29 @@
         "schema" : {
           "type" : "integer"
         }
+      },
+      "Candidate" : {
+        "name" : "candidate",
+        "in" : "query",
+        "description" : "ID of the candidate to be filtered by",
+        "schema" : {
+          "type" : "integer"
+        }
+      },
+      "PartyId" : {
+        "name" : "party",
+        "in" : "query",
+        "description" : "ID of the party to be filtered by",
+        "schema" : {
+          "type" : "integer"
+        }
       }
     },
     "responses" : {
       "400Error" : {
         "description" : "Invalid request",
         "content" : {
-          "*/*" : {
+          "application/json" : {
             "schema" : {
               "type" : "object",
               "properties" : {
