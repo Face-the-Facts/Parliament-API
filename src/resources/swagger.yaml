@@ -11,6 +11,10 @@ tags:
   description: Everything about candidates
 - name: Parties
   description: Everything about parties
+- name: Constituencies
+  description: Everything about constituencies
+- name: Poll
+  description: everything about polls
 paths:
   /candidates:
     get:
@@ -77,6 +81,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/inline_response_201'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+        "404":
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
   /candidates/{id}:
     get:
       tags:
@@ -111,7 +127,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/inline_response_400'
         "404":
-          description: A user with the specified ID was not found
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
   /parties:
     get:
       tags:
@@ -139,7 +159,7 @@ paths:
       description: Create a new Candidate
       operationId: postParty
       requestBody:
-        description: Optional description in *Markdown*
+        description: Political party to be added
         content:
           application/json:
             schema:
@@ -297,6 +317,14 @@ components:
           example: CDU/CSU
       description: Political Party
     Poll:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+        result:
+          $ref: '#/components/schemas/Poll_result'
       description: Parliamentary Poll
     Vote:
       properties:
@@ -345,9 +373,26 @@ components:
           example: https://commons.wikimedia.org/wiki/File:Philipp_Amthor.jpg#/media/File:Philipp_Amthor.jpg
         bbox:
           $ref: '#/components/schemas/Candidate_image_bbox'
+    Poll_result:
+      type: object
+      properties:
+        "yes":
+          type: integer
+        "no":
+          type: integer
+        abstain:
+          type: integer
+        no_vote:
+          type: integer
   responses:
     "400Error":
       description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'
+    "404Error":
+      description: 404 Not Found
       content:
         application/json:
           schema:
