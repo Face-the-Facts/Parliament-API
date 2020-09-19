@@ -216,6 +216,55 @@ export interface Party {
  * @interface Poll
  */
 export interface Poll {
+    /**
+     * 
+     * @type {number}
+     * @memberof Poll
+     */
+    id?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Poll
+     */
+    label?: string;
+    /**
+     * 
+     * @type {PollResult}
+     * @memberof Poll
+     */
+    result?: PollResult;
+}
+/**
+ * 
+ * @export
+ * @interface PollResult
+ */
+export interface PollResult {
+    /**
+     * 
+     * @type {number}
+     * @memberof PollResult
+     */
+    yes?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PollResult
+     */
+    no?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PollResult
+     */
+    abstain?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof PollResult
+     */
+    noVote?: number;
 }
 /**
  * Vote on Parliamentary Poll
@@ -643,7 +692,7 @@ export const PartiesApiFetchParamCreator = function (configuration?: Configurati
         },
         /**
          * Create a new Candidate
-         * @param {Party} body Optional description in *Markdown*
+         * @param {Party} body Political party to be added
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -810,7 +859,7 @@ export const PartiesApiFp = function(configuration?: Configuration) {
         },
         /**
          * Create a new Candidate
-         * @param {Party} body Optional description in *Markdown*
+         * @param {Party} body Political party to be added
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -901,7 +950,7 @@ export const PartiesApiFactory = function (configuration?: Configuration, fetch?
         },
         /**
          * Create a new Candidate
-         * @param {Party} body Optional description in *Markdown*
+         * @param {Party} body Political party to be added
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -985,7 +1034,7 @@ export class PartiesApi extends BaseAPI {
 
     /**
      * Create a new Candidate
-     * @param {Party} body Optional description in *Markdown*
+     * @param {Party} body Political party to be added
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PartiesApi
