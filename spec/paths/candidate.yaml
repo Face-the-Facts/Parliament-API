@@ -1,0 +1,38 @@
+get:
+  tags:
+  - Candidates
+  description: Returns a candidate by ID
+  operationId: getCandidate
+  parameters:
+  - name: id
+    in: path
+    description: The ID of the candidate to return
+    required: true
+    style: simple
+    explode: false
+    schema:
+      type: integer
+  responses:
+    "200":
+      description: OK
+      content:
+        'application/json:':
+          schema:
+            $ref: '#/components/schemas/Candidate'
+      links:
+        GetCandidateParty:
+          operationId: getParty
+          parameters:
+            partyId: $response.body#/party
+    "400":
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'
+    "404":
+      description: 404 Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'

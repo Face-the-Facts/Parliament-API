@@ -1,0 +1,76 @@
+get:
+  tags:
+  - Candidates
+  description: Returns a list of candidates
+  operationId: getCandidates
+  parameters:
+  - name: limit
+    in: query
+    description: Limits the number of items on a page
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  - name: offset
+    in: query
+    description: Specifies the page number of the artists to be displayed
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  - name: party
+    in: query
+    description: ID of the party to be filtered by
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  responses:
+    "200":
+      description: Successfully returned a list of candidates
+      content:
+        'application/json:':
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Candidate'
+    "400":
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'
+post:
+  tags:
+  - Candidates
+  description: Create a new Candidate
+  operationId: postCandidate
+  requestBody:
+    description: Optional description in *Markdown*
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/Candidate'
+    required: true
+  responses:
+    "201":
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201'
+    "400":
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'
+    "404":
+      description: 404 Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_400'

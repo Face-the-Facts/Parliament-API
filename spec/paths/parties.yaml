@@ -1,0 +1,45 @@
+get:
+  tags:
+  - Parties
+  description: Returns a collection of Parties
+  parameters:
+  - name: partyId
+    in: query
+    description: The ID of the Political Party to return
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  responses:
+    "200":
+      description: OK
+      content:
+        'application/json:':
+          schema:
+            $ref: '#/components/schemas/Party'
+post:
+  tags:
+  - Parties
+  description: Create a new Candidate
+  operationId: postParty
+  requestBody:
+    description: Political party to be added
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/Party'
+    required: true
+  responses:
+    "201":
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_201'
+head:
+  tags:
+  - Parties
+  responses:
+    "200":
+      description: OK

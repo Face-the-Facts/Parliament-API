@@ -11,9 +11,28 @@ info:
 servers:
 - url: https://virtserver.swaggerhub.com/Face-the-Facts/REST-API/1.0.0
   description: SwaggerHub API Auto Mocking
+tags:
+- name: Candidates
+  description: Everything about candidates
+- name: Parties
+  description: Everything about parties
+- name: Constituencies
+  description: Everything about constituencies
+- name: Poll
+  description: everything about polls
 paths:
+  /candidates:
+    $ref: './paths/candidates.yaml'
+  /candidates/{id}:
+    $ref: './paths/candidate.yaml'
   /elections:
-    $ref: './paths/elections'
+    $ref: './paths/elections.yaml'
+  /elections/{id}:
+    $ref: './paths/election.yaml'
+  /parties:
+    $ref: './paths/parties.yaml'
+  /parties/{id}:
+    $ref: './paths/party.yaml'
 components:
   parameters:
     $ref: "./parameters/_index.yaml"
