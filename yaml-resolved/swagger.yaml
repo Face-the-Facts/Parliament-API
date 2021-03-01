@@ -99,15 +99,83 @@ paths:
     get:
       tags:
       - Election
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the election to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElectionResponse'
     put:
       tags:
       - Election
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the election to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElectionResponse'
     delete:
       tags:
       - Election
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the election to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElectionResponse'
     patch:
       tags:
       - Election
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the election to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ElectionResponse'
   /candidates:
     get:
       tags:
@@ -227,12 +295,68 @@ paths:
     put:
       tags:
       - Candidates
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the candidate to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "201":
+          description: Created
+        "200":
+          description: OK
+        "404":
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
     delete:
       tags:
       - Candidates
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the candidate to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
     patch:
       tags:
       - Candidates
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the candidate to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: 404 Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_404'
   /parties:
     get:
       tags:
@@ -450,6 +574,59 @@ components:
         label:
           type: string
           example: mixed-member proportional representation
+    Candidate:
+      required:
+      - candidateId
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 1
+        name:
+          type: string
+          example: Philipp Amthor
+        image:
+          $ref: '#/components/schemas/Candidate_image'
+        party:
+          type: integer
+          example: 1
+      description: Electoral Candidate for political office
+    Constituency:
+      description: Electoral Constituency
+    Party:
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 1
+        name:
+          type: string
+          example: CDU/CSU
+      description: Political Party
+    Poll:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        label:
+          type: string
+        result:
+          $ref: '#/components/schemas/Poll_result'
+      description: Parliamentary Poll
+    Vote:
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        candidate:
+          type: integer
+        poll:
+          type: integer
+      description: Vote on Parliamentary Poll
     inline_response_404:
       type: object
       properties:
@@ -459,6 +636,44 @@ components:
       type: object
       properties:
         id:
+          type: integer
+    Candidate_image_bbox:
+      type: object
+      properties:
+        minX:
+          type: number
+          format: double
+          example: 0
+        maxX:
+          type: number
+          format: double
+          example: 2746
+        minY:
+          type: number
+          format: double
+          example: 0
+        maxY:
+          type: number
+          format: double
+          example: 2746
+    Candidate_image:
+      type: object
+      properties:
+        src:
+          type: string
+          example: https://commons.wikimedia.org/wiki/File:Philipp_Amthor.jpg#/media/File:Philipp_Amthor.jpg
+        bbox:
+          $ref: '#/components/schemas/Candidate_image_bbox'
+    Poll_result:
+      type: object
+      properties:
+        "true":
+          type: integer
+        "false":
+          type: integer
+        abstain:
+          type: integer
+        no_vote:
           type: integer
   responses:
     "400Error":
