@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: Face the Facts API
+  description: Face the Facts API
+  contact:
+    email: fabi@facethefacts.app
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/Face-the-Facts/REST-API/1.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /elections:
+    $ref: './paths/elections'
+components:
+  parameters:
+    $ref: "./parameters/_index.yaml"
+  schemas:
+    $ref: "./schemas/_index.yaml"
+  responses:
+    $ref: "./responses/_index.yaml"
+  examples:
+    $ref: "./examples/_index.yaml"
+  callbacks:
+    $ref: "./callbacks/_index.yaml"
+  headers:
+    $ref: "./headers/_index.yaml"
+  links:
+    $ref: "./links/_index.yaml"
+  requestBodies:
+    $ref: "./requestBodies/_index.yaml"
+  securitySchemes:
+    $ref: "./securitySchemes/_index.yaml"

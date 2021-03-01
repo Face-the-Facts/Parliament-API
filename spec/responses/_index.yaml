@@ -1,0 +1,24 @@
+"400Error":
+  description: Invalid request
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/inline_response_404'
+"404Error":
+  description: 404 Not Found
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/inline_response_404'
+"201Created":
+  description: Created
+  content:
+    application/json:
+      schema:
+        $ref: '#/components/schemas/inline_response_201'
+"200OK":
+  description: OK
+  content:
+    application/json:
+      schema:
+        type: object

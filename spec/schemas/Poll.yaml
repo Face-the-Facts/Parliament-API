@@ -1,0 +1,9 @@
+properties:
+  id:
+    type: integer
+    readOnly: true
+  label:
+    type: string
+  result:
+    $ref: '#/components/schemas/Poll_result'
+description: Parliamentary Poll

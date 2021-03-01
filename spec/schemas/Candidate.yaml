@@ -1,0 +1,17 @@
+required:
+- candidateId
+type: object
+properties:
+  id:
+    type: integer
+    readOnly: true
+    example: 1
+  name:
+    type: string
+    example: Philipp Amthor
+  image:
+    $ref: '#/components/schemas/CandidateImage'
+  party:
+    type: integer
+    example: 1
+description: Electoral Candidate for political office

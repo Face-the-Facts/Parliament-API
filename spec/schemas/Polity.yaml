@@ -1,0 +1,15 @@
+required:
+- election_system
+- id
+- label
+type: object
+properties:
+  id:
+    type: string
+    format: uuid
+    example: d290f1ee-6c54-4b01-90e6-d701748f0851
+  election_system:
+    $ref: '#/components/schemas/ElectionSystem'
+  label:
+    type: string
+    example: Bundesrepublik Deutschland

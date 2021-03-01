@@ -1,0 +1,71 @@
+get:
+  tags:
+  - Election
+  description: Get a list of elections
+  parameters:
+  - name: limit
+    in: query
+    description: Limits the number of items on a page
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  - name: offset
+    in: query
+    description: Specifies the page number of the artists to be displayed
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/ElectionResponse'
+    "404":
+      description: 404 Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_response_404'
+post:
+  tags:
+  - Election
+  description: Add a new election
+  parameters:
+  - name: limit
+    in: query
+    description: Limits the number of items on a page
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  - name: offset
+    in: query
+    description: Specifies the page number of the artists to be displayed
+    required: false
+    style: form
+    explode: true
+    schema:
+      type: integer
+  requestBody:
+    description: Election request body
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/ElectionRequest'
+    required: true
+  responses:
+    "201":
+      description: Created
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ElectionResponse'
