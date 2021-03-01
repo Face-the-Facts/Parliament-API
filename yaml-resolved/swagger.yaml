@@ -22,6 +22,8 @@ tags:
   description: everything about polls
 - name: Election
   description: everything about elections
+- name: Controversies
+  description: everything about controversies
 paths:
   /elections:
     get:
@@ -627,6 +629,35 @@ components:
         poll:
           type: integer
       description: Vote on Parliamentary Poll
+    Controversy:
+      required:
+      - candidate
+      - id
+      - label
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        label:
+          type: string
+          example: Augustus Intelligence
+        candidate:
+          $ref: '#/components/schemas/Candidate'
+      description: Controversy related to a candidate
+    ControversyArticle:
+      required:
+      - id
+      - url
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        url:
+          type: string
+          format: url
+      description: Article about a controversy
     inline_response_404:
       type: object
       properties:
