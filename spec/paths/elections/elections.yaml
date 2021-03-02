@@ -2,6 +2,7 @@ get:
   tags:
   - Election
   description: Get a list of elections
+  operationId: getElections
   parameters:
   - name: limit
     in: query
@@ -27,13 +28,14 @@ get:
           schema:
             type: array
             items:
-              $ref: '../schemas/ElectionResponse.yaml'
+              $ref: '../../schemas/ElectionResponse.yaml'
     "404":
-      $ref: '../responses/404NotFound.yaml'
+      $ref: '../../responses/404NotFound.yaml'
 post:
   tags:
   - Election
   description: Add a new election
+  operationId: postElection
   parameters:
   - name: limit
     in: query
@@ -56,7 +58,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../schemas/ElectionRequest.yaml'
+          $ref: '../../schemas/ElectionRequest.yaml'
     required: true
   responses:
     "201":
@@ -64,4 +66,4 @@ post:
       content:
         application/json:
           schema:
-            $ref: '../schemas/ElectionResponse.yaml'
+            $ref: '../../schemas/ElectionResponse.yaml'

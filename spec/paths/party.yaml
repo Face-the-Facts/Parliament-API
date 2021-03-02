@@ -2,6 +2,7 @@ get:
   tags:
   - Parties
   description: Returns a Political Party by ID
+  operationId: getParty
   parameters:
   - name: id
     in: path

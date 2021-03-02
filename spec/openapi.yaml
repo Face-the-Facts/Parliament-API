@@ -20,15 +20,17 @@ tags:
   description: Everything about constituencies
 - name: Poll
   description: everything about polls
+- name: Election
+  description: Requests concerning elections.
 paths:
   /candidates:
     $ref: './paths/candidates.yaml'
   /candidates/{id}:
     $ref: './paths/candidate.yaml'
   /elections:
-    $ref: './paths/elections.yaml'
+    $ref: './paths/elections/elections.yaml'
   /elections/{id}:
-    $ref: './paths/election.yaml'
+    $ref: './paths/elections/election.yaml'
   /parties:
     $ref: './paths/parties.yaml'
   /parties/{id}:

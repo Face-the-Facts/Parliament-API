@@ -2,7 +2,14 @@ get:
   tags:
   - Election
   description: Get a list of elections
+  operationId: getElection
   parameters:
+  - name: id
+    in: path
+    required: true
+    schema:
+      type: string
+      format: uuid
   - name: limit
     in: query
     description: Limits the number of items on a page
@@ -27,6 +34,6 @@ get:
           schema:
             type: array
             items:
-              $ref: '../schemas/ElectionResponse.yaml'
+              $ref: '../../schemas/ElectionResponse.yaml'
     "404":
-      $ref: '../responses/404NotFound.yaml'
+      $ref: '../../responses/404NotFound.yaml'

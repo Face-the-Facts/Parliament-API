@@ -2,6 +2,7 @@ get:
   tags:
   - Parties
   description: Returns a collection of Parties
+  operationId: getParties
   parameters:
   - name: partyId
     in: query
@@ -36,6 +37,8 @@ post:
 head:
   tags:
   - Parties
+  description: HEAD request for parties
+  operationId: headParties
   responses:
     "200":
       description: OK
