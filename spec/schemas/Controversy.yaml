@@ -11,5 +11,5 @@ properties:
     type: string
     example: Augustus Intelligence
   candidate:
-    $ref: '#/components/schemas/Candidate'
+    $ref: './Candidate.yaml'
 description: Controversy related to a candidate

@@ -4,4 +4,4 @@ properties:
     type: string
     example: https://commons.wikimedia.org/wiki/File:Philipp_Amthor.jpg#/media/File:Philipp_Amthor.jpg
   bbox:
-    $ref: '#/components/schemas/CandidateImageBbox'
+    $ref: './CandidateImageBbox.yaml'

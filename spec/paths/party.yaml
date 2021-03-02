@@ -17,7 +17,7 @@ get:
       content:
         'application/json:':
           schema:
-            $ref: '#/components/schemas/Party'
+            $ref: '../schemas/Party.yaml'
       links:
         GetPartyMembers:
           operationId: GetCandidatesByParty
@@ -42,15 +42,11 @@ put:
     content:
       application/json:
         schema:
-          $ref: '#/components/schemas/Party'
+          $ref: '../schemas/Party.yaml'
     required: true
   responses:
     "201":
-      description: Created
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_201'
+      $ref: '../responses/201Created.yaml'
 delete:
   tags:
   - Parties
@@ -67,11 +63,7 @@ delete:
       type: integer
   responses:
     "201":
-      description: Created
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_201'
+      $ref: '../responses/201Created.yaml'
 patch:
   tags:
   - Parties
@@ -91,12 +83,8 @@ patch:
     content:
       application/json:
         schema:
-          $ref: '#/components/schemas/Party'
+          $ref: '../schemas/Party.yaml'
     required: true
   responses:
     "201":
-      description: Created
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_201'
+      $ref: '../responses/201Created.yaml'

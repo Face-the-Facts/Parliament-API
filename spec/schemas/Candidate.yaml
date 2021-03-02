@@ -10,7 +10,7 @@ properties:
     type: string
     example: Philipp Amthor
   image:
-    $ref: '#/components/schemas/CandidateImage'
+    $ref: './CandidateImage.yaml'
   party:
     type: integer
     example: 1

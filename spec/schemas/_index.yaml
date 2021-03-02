@@ -6,6 +6,8 @@ Polity:
   $ref: './Polity.yaml'
 ElectionSystem:
   $ref: './ElectionSystem.yaml'
+Error:
+  $ref: './Error.yaml'
 Candidate:
   $ref: './Candidate.yaml'
 Constituency:

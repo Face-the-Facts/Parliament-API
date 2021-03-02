@@ -1,24 +1,8 @@
 "400Error":
-  description: Invalid request
-  content:
-    application/json:
-      schema:
-        $ref: '#/components/schemas/inline_response_404'
+  $ref: './400Error.yaml'
 "404Error":
-  description: 404 Not Found
-  content:
-    application/json:
-      schema:
-        $ref: '#/components/schemas/inline_response_404'
+  $ref: './404NotFound.yaml'
 "201Created":
-  description: Created
-  content:
-    application/json:
-      schema:
-        $ref: '#/components/schemas/inline_response_201'
+  $ref: './201Created.yaml'
 "200OK":
   description: OK
-  content:
-    application/json:
-      schema:
-        type: object

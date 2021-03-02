@@ -18,21 +18,13 @@ get:
       content:
         'application/json:':
           schema:
-            $ref: '#/components/schemas/Candidate'
+            $ref: '../schemas/Candidate.yaml'
       links:
         GetCandidateParty:
           operationId: getParty
           parameters:
             partyId: $response.body#/party
     "400":
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_400'
+      $ref: '../responses/400Error.yaml'
     "404":
-      description: 404 Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_400'
+      $ref: '../responses/404NotFound.yaml'

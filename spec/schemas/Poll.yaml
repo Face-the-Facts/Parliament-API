@@ -5,5 +5,5 @@ properties:
   label:
     type: string
   result:
-    $ref: '#/components/schemas/Poll_result'
+    $ref: './PollResult.yaml'
 description: Parliamentary Poll

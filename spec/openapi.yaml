@@ -40,15 +40,15 @@ components:
     $ref: "./schemas/_index.yaml"
   responses:
     $ref: "./responses/_index.yaml"
-  examples:
-    $ref: "./examples/_index.yaml"
-  callbacks:
-    $ref: "./callbacks/_index.yaml"
-  headers:
-    $ref: "./headers/_index.yaml"
-  links:
-    $ref: "./links/_index.yaml"
-  requestBodies:
-    $ref: "./requestBodies/_index.yaml"
-  securitySchemes:
-    $ref: "./securitySchemes/_index.yaml"
+  # examples:
+  #   $ref: "./examples/_index.yaml"
+  # callbacks:
+  #   $ref: "./callbacks/_index.yaml"
+  # headers:
+  #   $ref: "./headers/_index.yaml"
+  # links:
+  #   $ref: "./links/_index.yaml"
+  # requestBodies:
+  #   $ref: "./requestBodies/_index.yaml"
+  # securitySchemes:
+  #   $ref: "./securitySchemes/_index.yaml"

@@ -27,13 +27,9 @@ get:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/ElectionResponse'
+              $ref: '../schemas/ElectionResponse.yaml'
     "404":
-      description: 404 Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_404'
+      $ref: '../responses/404NotFound.yaml'
 post:
   tags:
   - Election
@@ -60,7 +56,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '#/components/schemas/ElectionRequest'
+          $ref: '../schemas/ElectionRequest.yaml'
     required: true
   responses:
     "201":
@@ -68,4 +64,4 @@ post:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ElectionResponse'
+            $ref: '../schemas/ElectionResponse.yaml'

@@ -36,13 +36,9 @@ get:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Candidate'
+              $ref: '../schemas/Candidate.yaml'
     "400":
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_400'
+      $ref: '../responses/400Error.yaml'
 post:
   tags:
   - Candidates
@@ -53,24 +49,12 @@ post:
     content:
       application/json:
         schema:
-          $ref: '#/components/schemas/Candidate'
+          $ref: '../schemas/Candidate.yaml'
     required: true
   responses:
     "201":
-      description: Created
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_201'
+      $ref: '../responses/201Created.yaml'
     "400":
-      description: Invalid request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_400'
+      $ref: '../responses/400Error.yaml'
     "404":
-      description: 404 Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_400'
+      $ref: '../responses/404NotFound.yaml'

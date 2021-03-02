@@ -17,7 +17,7 @@ get:
       content:
         'application/json:':
           schema:
-            $ref: '#/components/schemas/Party'
+            $ref: '../schemas/Party.yaml'
 post:
   tags:
   - Parties
@@ -28,15 +28,11 @@ post:
     content:
       application/json:
         schema:
-          $ref: '#/components/schemas/Party'
+          $ref: '../schemas/Party.yaml'
     required: true
   responses:
     "201":
-      description: Created
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/inline_response_201'
+      $ref: '../responses/201Created.yaml'
 head:
   tags:
   - Parties
