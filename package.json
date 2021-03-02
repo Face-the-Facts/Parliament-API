@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Face-the-Facts/open-api#readme",
   "dependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",
+    "@stoplight/spectral": "^5.8.1",
     "openapi-types": "^7.2.3",
     "redoc-cli": "^0.10.2"
   }
