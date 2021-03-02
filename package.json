@@ -4,11 +4,11 @@
   "description": "Parliament API",
   "main": "index.js",
   "scripts": {
-    "build": "swagger-cli bundle spec/openapi.yaml --outfile _build/openapi.yaml --type yaml",
-    "test": "npm run build && spectral lint _build/openapi.yaml",
-    "preview": "npm run build && redoc-cli serve _build/openapi.yaml --options.onlyRequiredInSamples",
-    "html": "npm run build && redoc-cli bundle _build/openapi.yaml  --output _build/index.html --options.onlyRequiredInSamples",
-    "clean": "rm -r _build",
+    "build": "swagger-cli bundle spec/openapi.yaml --outfile docs/openapi.yaml --type yaml",
+    "test": "npm run build && spectral lint docs/openapi.yaml",
+    "preview": "npm run build && redoc-cli serve docs/openapi.yaml --options.onlyRequiredInSamples",
+    "html": "npm run build && redoc-cli bundle docs/openapi.yaml  --output docs/index.html --options.onlyRequiredInSamples",
+    "clean": "rm -r docs",
     "deploy": "./ci/deploy.sh"
   },
   "repository": {
