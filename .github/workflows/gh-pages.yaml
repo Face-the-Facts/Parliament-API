@@ -8,7 +8,7 @@ jobs:
   gh_release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '14.x'
@@ -17,11 +17,11 @@ jobs:
           npm ci
           npm run build
           npm run html
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add -f ./docs
-          git commit -m 'Generate docs' || True
-          git push origin main --force
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Generated docs"
+          git push
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
