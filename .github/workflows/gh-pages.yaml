@@ -17,6 +17,9 @@ jobs:
           npm ci
           npm run build
           npm run html
+          git add ./docs
+          git commit -m 'Generate docs' || True
+          git push origin main
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
