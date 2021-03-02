@@ -1,2 +1,0 @@
-# Parliament-API
-Parliament API
