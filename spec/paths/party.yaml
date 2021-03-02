@@ -1,0 +1,90 @@
+get:
+  tags:
+  - Parties
+  description: Returns a Political Party by ID
+  parameters:
+  - name: id
+    in: path
+    description: The ID of the Political Party to return
+    required: true
+    style: simple
+    explode: false
+    schema:
+      type: integer
+  responses:
+    "200":
+      description: OK
+      content:
+        'application/json:':
+          schema:
+            $ref: '../schemas/Party.yaml'
+      links:
+        GetPartyMembers:
+          operationId: GetCandidatesByParty
+          parameters:
+            politicalParty: $response.body#/id
+put:
+  tags:
+  - Parties
+  description: Replace a Party
+  operationId: putParty
+  parameters:
+  - name: id
+    in: path
+    description: The ID of the Political Party to return
+    required: true
+    style: simple
+    explode: false
+    schema:
+      type: integer
+  requestBody:
+    description: Optional description in *Markdown*
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/Party.yaml'
+    required: true
+  responses:
+    "201":
+      $ref: '../responses/201Created.yaml'
+delete:
+  tags:
+  - Parties
+  description: Delete a Party
+  operationId: deleteParty
+  parameters:
+  - name: id
+    in: path
+    description: The ID of the Political Party to return
+    required: true
+    style: simple
+    explode: false
+    schema:
+      type: integer
+  responses:
+    "201":
+      $ref: '../responses/201Created.yaml'
+patch:
+  tags:
+  - Parties
+  description: Partially update a Party
+  operationId: patchParty
+  parameters:
+  - name: id
+    in: path
+    description: The ID of the Political Party to return
+    required: true
+    style: simple
+    explode: false
+    schema:
+      type: integer
+  requestBody:
+    description: Optional description in *Markdown*
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/Party.yaml'
+    required: true
+  responses:
+    "201":
+      $ref: '../responses/201Created.yaml'
