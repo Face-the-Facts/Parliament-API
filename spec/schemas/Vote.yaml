@@ -1,9 +1,0 @@
-properties:
-  id:
-    type: integer
-    readOnly: true
-  candidate:
-    type: integer
-  poll:
-    type: integer
-description: Vote on Parliamentary Poll

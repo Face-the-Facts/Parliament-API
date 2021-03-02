@@ -1,9 +1,0 @@
-properties:
-  id:
-    type: integer
-    readOnly: true
-  label:
-    type: string
-  result:
-    $ref: './PollResult.yaml'
-description: Parliamentary Poll

@@ -1,8 +1,0 @@
-"400Error":
-  $ref: './400Error.yaml'
-"404Error":
-  $ref: './404NotFound.yaml'
-"201Created":
-  $ref: './201Created.yaml'
-"200OK":
-  description: OK
