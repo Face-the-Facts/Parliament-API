@@ -1,0 +1,7 @@
+description: Successfully returned a list of candidates
+content:
+  'application/json:':
+    schema:
+      $ref: '../schemas/ArrayOfCandidate.yaml'
+    example:
+      $ref: '../examples/candidates.yaml'

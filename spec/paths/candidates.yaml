@@ -10,11 +10,7 @@ get:
   - $ref: '../parameters/partyIdQueryParam.yaml'
   responses:
     "200":
-      description: Successfully returned a list of candidates
-      content:
-        'application/json:':
-          schema:
-            $ref: '../schemas/ArrayOfCandidate.yaml'
+      $ref: '../responses/200Candidates.yaml'
     "400":
       $ref: '../responses/400Error.yaml'
 post:

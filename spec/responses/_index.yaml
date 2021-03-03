@@ -10,3 +10,5 @@
   description: OK
 "200Candidate":
   $ref: './200Candidate.yaml'
+"200Candidates":
+  $ref: './200Candidates.yaml'
