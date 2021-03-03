@@ -35,6 +35,8 @@ tags:
   - name: Candidates
     description: |
       Everything about candidates
+  - name: Controversies
+    description: Request for the controversy resource
   - name: Constituencies
     description: |
       Everything about constituencies
@@ -52,6 +54,7 @@ x-tagGroups:
     tags:
       - Candidates
       - Parties
+      - Controversies
   - name: Parliament
     tags:
       - Poll
@@ -73,16 +76,7 @@ paths:
         - $ref: '#/components/parameters/partyIdQueryParam'
       responses:
         '200':
-          description: Successfully returned a list of candidates
-          content:
-            'application/json:':
-              schema:
-                type: array
-                description: Array of Candidates
-                items:
-                  $ref: '#/components/schemas/Candidate'
-                example:
-                  $ref: '#/components/examples/candidatesExample/value'
+          $ref: '#/components/responses/200Candidates'
         '400':
           $ref: '#/components/responses/400Error'
     post:
@@ -737,6 +731,19 @@ components:
         - operationId: getParty
           parameters:
             partyId: $response.body#/party
+    200Candidates:
+      description: Successfully returned a list of candidates
+      content:
+        'application/json:':
+          schema:
+            type: array
+            description: Array of Candidates
+            items:
+              $ref: '#/components/schemas/Candidate'
+            example:
+              $ref: '#/components/examples/candidatesExample/value'
+          example:
+            $ref: '#/components/examples/candidatesExample/value'
   examples:
     candidatesExample:
       value:
