@@ -21,6 +21,9 @@ info:
     <!-- ReDoc-Inject: <security-definitions> -->
   contact:
     email: fabi@facethefacts.app
+  x-logo:
+    url: 'https://facethefacts.github.io/logo_light.png'
+    altText: Face the Facts logo
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
