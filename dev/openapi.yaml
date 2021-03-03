@@ -35,6 +35,8 @@ tags:
   - name: Candidates
     description: |
       Everything about candidates
+  - name: Controversies
+    description: Request for the controversy resource
   - name: Constituencies
     description: |
       Everything about constituencies
@@ -52,6 +54,7 @@ x-tagGroups:
     tags:
       - Candidates
       - Parties
+      - Controversies
   - name: Parliament
     tags:
       - Poll
@@ -73,16 +76,7 @@ paths:
         - $ref: '#/components/parameters/partyIdQueryParam'
       responses:
         '200':
-          description: Successfully returned a list of candidates
-          content:
-            'application/json:':
-              schema:
-                type: array
-                description: Array of Candidates
-                items:
-                  $ref: '#/components/schemas/Candidate'
-                example:
-                  $ref: '#/components/examples/candidatesExample/value'
+          $ref: '#/components/responses/200Candidates'
         '400':
           $ref: '#/components/responses/400Error'
     post:
@@ -734,9 +728,20 @@ components:
           example:
             $ref: '#/components/examples/candidateExample/value'
       links:
-        - operationId: getParty
-          parameters:
-            partyId: $response.body#/party
+        - $ref: '#/components/links/GetCandidateParty'
+    200Candidates:
+      description: Successfully returned a list of candidates
+      content:
+        'application/json:':
+          schema:
+            type: array
+            description: Array of Candidates
+            items:
+              $ref: '#/components/schemas/Candidate'
+            example:
+              $ref: '#/components/examples/candidatesExample/value'
+          example:
+            $ref: '#/components/examples/candidatesExample/value'
   examples:
     candidatesExample:
       value:
@@ -767,6 +772,11 @@ components:
         id: d290f1ee-6c54-4b01-90e6-d701748f0851
         label: mixed-member proportional representation
         shortcode: MMP
+  links:
+    GetCandidateParty:
+      operationId: getParty
+      parameters:
+        partyId: $response.body#/party
   requestBodies:
     candidateRequest:
       description: Optional description in *Markdown*
