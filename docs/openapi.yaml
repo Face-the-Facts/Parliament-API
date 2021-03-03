@@ -47,6 +47,18 @@ tags:
   - name: Poll
     description: |
       everything about polls
+x-tagGroups:
+  - name: Main
+    tags:
+      - Candidates
+      - Parties
+  - name: Parliament
+    tags:
+      - Poll
+  - name: Elections
+    tags:
+      - Election
+      - Constituencies
 paths:
   /candidates:
     get:
@@ -101,28 +113,60 @@ paths:
       description: Returns a candidate by ID
       operationId: getCandidate
       parameters:
-        - name: id
-          in: path
-          description: The ID of the candidate to return
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: integer
+        - $ref: '#/components/parameters/candidateIdPathParam'
       responses:
         '200':
-          description: OK
-          content:
-            'application/json:':
-              schema:
-                $ref: '#/components/schemas/Candidate'
-              example:
-                $ref: '#/components/examples/candidateExample/value'
-          links:
-            GetCandidateParty:
-              operationId: getParty
-              parameters:
-                partyId: $response.body#/party
+          $ref: '#/components/responses/200Candidate'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '404':
+          $ref: '#/components/responses/404Error'
+      x-code-samples:
+        - lang: TypeScript
+          source: |
+            // add typescript code sample
+    put:
+      tags:
+        - Candidates
+      summary: Update a candidate
+      description: Updates the specified candidate based on request body
+      operationId: putCandidate
+      security:
+        - ApiKeyAuth:
+            - write
+        - BearerAuth:
+            - write
+      parameters:
+        - $ref: '#/components/parameters/candidateIdPathParam'
+      requestBody:
+        $ref: '#/components/requestBodies/candidateRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/200Candidate'
+        '400':
+          $ref: '#/components/responses/400Error'
+        '404':
+          $ref: '#/components/responses/404Error'
+      x-code-samples:
+        - lang: TypeScript
+          source: |
+            // add typescript code sample
+    delete:
+      tags:
+        - Candidates
+      summary: Delete a candidate
+      description: Delete the specified candidate
+      operationId: deleteCandidate
+      security:
+        - ApiKeyAuth:
+            - write
+        - BearerAuth:
+            - write
+      parameters:
+        - $ref: '#/components/parameters/candidateIdPathParam'
+      responses:
+        '204':
+          $ref: '#/components/responses/204NoContent'
         '400':
           $ref: '#/components/responses/400Error'
         '404':
@@ -137,23 +181,10 @@ paths:
         - Election
       description: Get a list of elections
       operationId: getElections
+      summary: Retrieve a list of elections
       parameters:
-        - name: limit
-          in: query
-          description: Limits the number of items on a page
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-        - name: offset
-          in: query
-          description: Specifies the page number of the artists to be displayed
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
       responses:
         '200':
           description: OK
@@ -170,23 +201,6 @@ paths:
         - Election
       description: Add a new election
       operationId: postElection
-      parameters:
-        - name: limit
-          in: query
-          description: Limits the number of items on a page
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-        - name: offset
-          in: query
-          description: Specifies the page number of the artists to be displayed
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
       requestBody:
         description: Election request body
         content:
@@ -458,6 +472,15 @@ components:
       explode: true
       schema:
         type: integer
+    candidateIdPathParam:
+      name: id
+      in: path
+      description: The ID of the candidate to return
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: integer
     Candidate:
       name: candidate
       in: query
@@ -689,7 +712,7 @@ components:
           type: integer
   responses:
     400Error:
-      description: Invalid request
+      description: Bad Request
     404Error:
       description: The specified resource was not found.
     201Created:
@@ -698,8 +721,22 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    204NoContent:
+      description: No Content
     200OK:
       description: OK
+    200Candidate:
+      description: OK
+      content:
+        'application/json:':
+          schema:
+            $ref: '#/components/schemas/Candidate'
+          example:
+            $ref: '#/components/examples/candidateExample/value'
+      links:
+        - operationId: getParty
+          parameters:
+            partyId: $response.body#/party
   examples:
     candidatesExample:
       value:
