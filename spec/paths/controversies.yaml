@@ -1,0 +1,35 @@
+get:
+  tags:
+  - Controversies
+  summary: Retrieve a list of controversies
+  description: Returns a list of controversies
+  operationId: getControversies
+  parameters:
+  - $ref: '../parameters/limitParam.yaml'
+  - $ref: '../parameters/offsetParam.yaml'
+  - $ref: '../parameters/candidateIdQueryParam.yaml'
+  responses:
+    "200":
+      $ref: '../responses/200Controversies.yaml'
+    "400":
+      $ref: '../responses/400Error.yaml'
+post:
+  tags:
+  - Controversies
+  summary: Add a new candidate
+  description: Create a new candidate in the database
+  operationId: postCandidate
+  security:
+    - ApiKeyAuth:
+        - write
+    - BearerAuth:
+        - write
+  requestBody:
+    $ref: '../requestBodies/candidateRequest.yaml'
+  responses:
+    "201":
+      $ref: '../responses/201Created.yaml'
+    "400":
+      $ref: '../responses/400Error.yaml'
+    "404":
+      $ref: '../responses/404NotFound.yaml'

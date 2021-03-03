@@ -35,6 +35,8 @@ tags:
 - name: Candidates
   description: |
     Everything about candidates
+- name: Controversies
+  description: Request for the controversy resource
 - name: Constituencies
   description: |
     Everything about constituencies
@@ -52,6 +54,7 @@ x-tagGroups:
     tags:
       - Candidates
       - Parties
+      - Controversies
   - name: Parliament
     tags:
       - Poll
