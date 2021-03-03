@@ -47,6 +47,18 @@ tags:
 - name: Poll
   description: |
     everything about polls
+x-tagGroups:
+  - name: Main
+    tags:
+      - Candidates
+      - Parties
+  - name: Parliament
+    tags:
+      - Poll
+  - name: Elections
+    tags:
+      - Election
+      - Constituencies
 
 paths:
   /candidates:
