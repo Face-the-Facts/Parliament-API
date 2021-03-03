@@ -6,7 +6,7 @@
   "scripts": {
     "build": "swagger-cli bundle spec/openapi.yaml --outfile docs/openapi.yaml --type yaml",
     "test": "npm run build && spectral lint docs/openapi.yaml",
-    "preview": "npm run build && redoc-cli serve docs/openapi.yaml --options.onlyRequiredInSamples",
+    "start": "redoc-cli serve spec/openapi.yaml --watch ",
     "html": "npm run build && redoc-cli bundle docs/openapi.yaml  --output docs/index.html --options.onlyRequiredInSamples",
     "clean": "rm -r docs",
     "deploy": "./ci/deploy.sh"

@@ -3,23 +3,10 @@ get:
   - Election
   description: Get a list of elections
   operationId: getElections
+  summary: Retrieve a list of elections
   parameters:
-  - name: limit
-    in: query
-    description: Limits the number of items on a page
-    required: false
-    style: form
-    explode: true
-    schema:
-      type: integer
-  - name: offset
-    in: query
-    description: Specifies the page number of the artists to be displayed
-    required: false
-    style: form
-    explode: true
-    schema:
-      type: integer
+  - $ref: '../../parameters/limitParam.yaml'
+  - $ref : '../../parameters/offsetParam.yaml'
   responses:
     "200":
       description: OK
@@ -36,23 +23,6 @@ post:
   - Election
   description: Add a new election
   operationId: postElection
-  parameters:
-  - name: limit
-    in: query
-    description: Limits the number of items on a page
-    required: false
-    style: form
-    explode: true
-    schema:
-      type: integer
-  - name: offset
-    in: query
-    description: Specifies the page number of the artists to be displayed
-    required: false
-    style: form
-    explode: true
-    schema:
-      type: integer
   requestBody:
     description: Election request body
     content:
