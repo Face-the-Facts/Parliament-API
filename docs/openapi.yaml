@@ -1,7 +1,24 @@
 openapi: 3.0.0
 info:
   title: Face the Facts API
-  description: Face the Facts API
+  description: |
+    For this sample, you can use the api key `special-key` to test the authorization filters.
+    # Introduction
+    This is the Face the Facts API. It's main purpose is to provide the data for our web application at facethefacts.app.
+    It may also be used by anyone interested in accordance with [insert license]
+    # OpenAPI Specification
+    This API is documented in **OpenAPI format**.
+    # Cross-Origin Resource Sharing
+    This API features Cross-Origin Resource Sharing (CORS) implemented in compliance with  [W3C spec](https://www.w3.org/TR/cors/).
+    And that allows cross-domain communication from the browser.
+    All responses have a wildcard same-origin which makes them completely public and accessible to everyone, including any code on any site.
+    # Authentication
+    All data is world readable. Write access is restricted to admins.
+
+    Admin access can be gained through the following forms of authentication:
+      - API Key
+      - HTTP Bearer Authentication
+    <!-- ReDoc-Inject: <security-definitions> -->
   contact:
     email: fabi@facethefacts.app
   license:
@@ -13,47 +30,32 @@ servers:
     description: SwaggerHub API Auto Mocking
 tags:
   - name: Candidates
-    description: Everything about candidates
-  - name: Parties
-    description: Everything about parties
+    description: |
+      Everything about candidates
   - name: Constituencies
-    description: Everything about constituencies
-  - name: Poll
-    description: everything about polls
+    description: |
+      Everything about constituencies
   - name: Election
-    description: Requests concerning elections.
+    description: |
+      Requests concerning elections.
+  - name: Parties
+    description: |
+      Everything about parties
+  - name: Poll
+    description: |
+      everything about polls
 paths:
   /candidates:
     get:
       tags:
         - Candidates
+      summary: Retrieve a list of candidates
       description: Returns a list of candidates
       operationId: getCandidates
       parameters:
-        - name: limit
-          in: query
-          description: Limits the number of items on a page
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-        - name: offset
-          in: query
-          description: Specifies the page number of the artists to be displayed
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
-        - name: party
-          in: query
-          description: ID of the party to be filtered by
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
+        - $ref: '#/components/parameters/limitParam'
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/partyIdQueryParam'
       responses:
         '200':
           description: Successfully returned a list of candidates
@@ -61,22 +63,26 @@ paths:
             'application/json:':
               schema:
                 type: array
+                description: Array of Candidates
                 items:
                   $ref: '#/components/schemas/Candidate'
+                example:
+                  $ref: '#/components/examples/candidatesExample/value'
         '400':
           $ref: '#/components/responses/400Error'
     post:
       tags:
         - Candidates
-      description: Create a new Candidate
+      summary: Add a new candidate
+      description: Create a new candidate in the database
       operationId: postCandidate
+      security:
+        - ApiKeyAuth:
+            - write
+        - BearerAuth:
+            - write
       requestBody:
-        description: Optional description in *Markdown*
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Candidate'
-        required: true
+        $ref: '#/components/requestBodies/candidateRequest'
       responses:
         '201':
           $ref: '#/components/responses/201Created'
@@ -88,6 +94,7 @@ paths:
     get:
       tags:
         - Candidates
+      summary: Retrieve a single candidate
       description: Returns a candidate by ID
       operationId: getCandidate
       parameters:
@@ -106,6 +113,8 @@ paths:
             'application/json:':
               schema:
                 $ref: '#/components/schemas/Candidate'
+              example:
+                $ref: '#/components/examples/candidateExample/value'
           links:
             GetCandidateParty:
               operationId: getParty
@@ -115,6 +124,10 @@ paths:
           $ref: '#/components/responses/400Error'
         '404':
           $ref: '#/components/responses/404Error'
+      x-code-samples:
+        - lang: TypeScript
+          source: |
+            // add typescript code sample
   /elections:
     get:
       tags:
@@ -223,6 +236,48 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/ElectionResponse'
+        '404':
+          $ref: '#/components/responses/404Error'
+  /elections/systems:
+    get:
+      tags:
+        - Election
+      description: Get a list of election systems
+      operationId: getElectionSystems
+      parameters:
+        - name: limit
+          in: query
+          description: Limits the number of items on a page
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Specifies the page number of the artists to be displayed
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                description: Array of election systems
+                items:
+                  $ref: '#/components/schemas/ElectionSystem'
+                example:
+                  - id: d290f1ee-6c54-4b01-90e6-d701748f0851
+                    label: mixed-member proportional representation
+                    shortcode: MMP
+                  - id: d290f1ee-6c54-4b01-90e6-d701748f0851
+                    label: open list proportional representation
+                    shortcode: OLP
         '404':
           $ref: '#/components/responses/404Error'
   /parties:
@@ -364,7 +419,7 @@ paths:
           $ref: '#/components/responses/201Created'
 components:
   parameters:
-    PageLimit:
+    limitParam:
       name: limit
       in: query
       description: Limits the number of items on a page
@@ -373,10 +428,28 @@ components:
       explode: true
       schema:
         type: integer
-    PageNumber:
+    offsetParam:
       name: offset
       in: query
-      description: Specifies the page number of the artists to be displayed
+      description: Specifies the offset from the start of the list of results
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+    partyIdQueryParam:
+      name: partyId
+      in: query
+      description: ID of the party to be filtered by
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: integer
+    candidateIdQueryParam:
+      name: candidateId
+      in: query
+      description: ID of the candidate to be filtered by
       required: false
       style: form
       explode: true
@@ -455,18 +528,22 @@ components:
           type: string
           example: Bundesrepublik Deutschland
     ElectionSystem:
+      type: object
+      description: Schema for an election system
       required:
         - id
         - label
-      type: object
+        - shortcode
       properties:
         id:
           type: string
           format: uuid
-          example: d290f1ee-6c54-4b01-90e6-d701748f0851
         label:
           type: string
-          example: mixed-member proportional representation
+        shortcode:
+          type: string
+      example:
+        $ref: '#/components/examples/electionSystemExample/value'
     Error:
       type: object
       required:
@@ -479,26 +556,26 @@ components:
         message:
           type: string
     Candidate:
+      description: Electoral Candidate for political office
       required:
-        - candidateId
+        - id
       type: object
       properties:
         id:
           type: integer
           readOnly: true
-          example: 1
         name:
           type: string
-          example: Philipp Amthor
         image:
           $ref: '#/components/schemas/CandidateImage'
         party:
           type: integer
-          example: 1
-      description: Electoral Candidate for political office
+      example:
+        $ref: '#/components/examples/candidateExample/value'
     Constituency:
       description: Electoral Constituency
     Party:
+      description: Political Party
       required:
         - id
       type: object
@@ -510,7 +587,6 @@ components:
         name:
           type: string
           example: CDU/CSU
-      description: Political Party
     Poll:
       properties:
         id:
@@ -621,3 +697,50 @@ components:
             $ref: '#/components/schemas/Error'
     200OK:
       description: OK
+  examples:
+    candidatesExample:
+      value:
+        - id: 1
+          name: Philipp Amthor
+          image:
+            src: 'https://commons.wikimedia.org/wiki/File:Philipp_Amthor.jpg#/media/File:Philipp_Amthor.jpg'
+            bbox:
+              minX: 0
+              maxX: 2746
+              minY: 0
+              maxY: 2746
+          party: 1
+    candidateExample:
+      value:
+        id: 1
+        name: Philipp Amthor
+        image:
+          src: 'https://commons.wikimedia.org/wiki/File:Philipp_Amthor.jpg#/media/File:Philipp_Amthor.jpg'
+          bbox:
+            minX: 0
+            maxX: 2746
+            minY: 0
+            maxY: 2746
+        party: 1
+    electionSystemExample:
+      value:
+        id: d290f1ee-6c54-4b01-90e6-d701748f0851
+        label: mixed-member proportional representation
+        shortcode: MMP
+  requestBodies:
+    candidateRequest:
+      description: Optional description in *Markdown*
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Candidate'
+          example:
+            $ref: '#/components/examples/candidateExample/value'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
