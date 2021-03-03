@@ -22,7 +22,7 @@ info:
   contact:
     email: fabi@facethefacts.app
   x-logo:
-    url: 'https://facethefacts.github.io/logo_light.png'
+    url: 'https://facethefacts.github.io/open-api/logo_light.png'
     altText: Face the Facts logo
   license:
     name: Apache 2.0
