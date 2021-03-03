@@ -20,6 +20,8 @@ tags:
     description: Everything about constituencies
   - name: Poll
     description: everything about polls
+  - name: Election
+    description: Requests concerning elections.
 paths:
   /candidates:
     get:
@@ -118,6 +120,7 @@ paths:
       tags:
         - Election
       description: Get a list of elections
+      operationId: getElections
       parameters:
         - name: limit
           in: query
@@ -150,6 +153,7 @@ paths:
       tags:
         - Election
       description: Add a new election
+      operationId: postElection
       parameters:
         - name: limit
           in: query
@@ -186,7 +190,14 @@ paths:
       tags:
         - Election
       description: Get a list of elections
+      operationId: getElection
       parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
         - name: limit
           in: query
           description: Limits the number of items on a page
@@ -219,6 +230,7 @@ paths:
       tags:
         - Parties
       description: Returns a collection of Parties
+      operationId: getParties
       parameters:
         - name: partyId
           in: query
@@ -253,6 +265,8 @@ paths:
     head:
       tags:
         - Parties
+      description: HEAD request for parties
+      operationId: headParties
       responses:
         '200':
           description: OK
@@ -261,6 +275,7 @@ paths:
       tags:
         - Parties
       description: Returns a Political Party by ID
+      operationId: getParty
       parameters:
         - name: id
           in: path
