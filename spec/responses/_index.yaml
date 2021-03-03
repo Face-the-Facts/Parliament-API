@@ -4,5 +4,9 @@
   $ref: './404NotFound.yaml'
 "201Created":
   $ref: './201Created.yaml'
+"204NoContent":
+  $ref: './204NoContent.yaml'
 "200OK":
   description: OK
+"200Candidate":
+  $ref: './200Candidate.yaml'
