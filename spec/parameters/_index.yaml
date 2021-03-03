@@ -6,6 +6,8 @@ partyIdQueryParam:
   $ref: './partyIdQueryParam.yaml'
 candidateIdQueryParam:
   $ref: './candidateIdQueryParam.yaml'
+candidateIdPathParam:
+  $ref: './candidateIdPathParam.yaml'
 Candidate:
   name: candidate
   in: query

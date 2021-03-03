@@ -1,0 +1,8 @@
+name: id
+in: path
+description: The ID of the candidate to return
+required: true
+style: simple
+explode: false
+schema:
+  type: integer
