@@ -1,21 +1,11 @@
-PageLimit:
-  name: limit
-  in: query
-  description: Limits the number of items on a page
-  required: false
-  style: form
-  explode: true
-  schema:
-    type: integer
-PageNumber:
-  name: offset
-  in: query
-  description: Specifies the page number of the artists to be displayed
-  required: false
-  style: form
-  explode: true
-  schema:
-    type: integer
+limitParam:
+  $ref: './limitParam.yaml'
+offsetParam:
+  $ref: './offsetParam.yaml'
+partyIdQueryParam:
+  $ref: './partyIdQueryParam.yaml'
+candidateIdQueryParam:
+  $ref: './candidateIdQueryParam.yaml'
 Candidate:
   name: candidate
   in: query

@@ -1,56 +1,35 @@
 get:
   tags:
   - Candidates
+  summary: Retrieve a list of candidates
   description: Returns a list of candidates
   operationId: getCandidates
   parameters:
-  - name: limit
-    in: query
-    description: Limits the number of items on a page
-    required: false
-    style: form
-    explode: true
-    schema:
-      type: integer
-  - name: offset
-    in: query
-    description: Specifies the page number of the artists to be displayed
-    required: false
-    style: form
-    explode: true
-    schema:
-      type: integer
-  - name: party
-    in: query
-    description: ID of the party to be filtered by
-    required: false
-    style: form
-    explode: true
-    schema:
-      type: integer
+  - $ref: '../parameters/limitParam.yaml'
+  - $ref: '../parameters/offsetParam.yaml'
+  - $ref: '../parameters/partyIdQueryParam.yaml'
   responses:
     "200":
       description: Successfully returned a list of candidates
       content:
         'application/json:':
           schema:
-            type: array
-            items:
-              $ref: '../schemas/Candidate.yaml'
+            $ref: '../schemas/ArrayOfCandidate.yaml'
     "400":
       $ref: '../responses/400Error.yaml'
 post:
   tags:
   - Candidates
-  description: Create a new Candidate
+  summary: Add a new candidate
+  description: Create a new candidate in the database
   operationId: postCandidate
+  security:
+    - ApiKeyAuth:
+        - write
+    - BearerAuth:
+        - write
   requestBody:
-    description: Optional description in *Markdown*
-    content:
-      application/json:
-        schema:
-          $ref: '../schemas/Candidate.yaml'
-    required: true
+    $ref: '../requestBodies/candidateRequest.yaml'
   responses:
     "201":
       $ref: '../responses/201Created.yaml'

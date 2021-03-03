@@ -1,6 +1,7 @@
 get:
   tags:
   - Candidates
+  summary: Retrieve a single candidate
   description: Returns a candidate by ID
   operationId: getCandidate
   parameters:
@@ -19,6 +20,8 @@ get:
         'application/json:':
           schema:
             $ref: '../schemas/Candidate.yaml'
+          example:
+            $ref: '../examples/candidate.yaml'
       links:
         GetCandidateParty:
           operationId: getParty
@@ -28,3 +31,7 @@ get:
       $ref: '../responses/400Error.yaml'
     "404":
       $ref: '../responses/404NotFound.yaml'
+  x-code-samples:
+    - lang: 'TypeScript'
+      source: |
+        // add typescript code sample

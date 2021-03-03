@@ -1,0 +1,8 @@
+name: candidateId
+in: query
+description: ID of the candidate to be filtered by
+required: false
+style: form
+explode: true
+schema:
+  type: integer

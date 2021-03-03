@@ -1,0 +1,7 @@
+description: Optional description in *Markdown*
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/Candidate.yaml'
+    example:
+      $ref: '../examples/candidate.yaml'

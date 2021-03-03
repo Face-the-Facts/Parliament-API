@@ -1,17 +1,16 @@
+description: Electoral Candidate for political office
 required:
-- candidateId
+- id
 type: object
 properties:
   id:
     type: integer
     readOnly: true
-    example: 1
   name:
     type: string
-    example: Philipp Amthor
   image:
     $ref: './CandidateImage.yaml'
   party:
     type: integer
-    example: 1
-description: Electoral Candidate for political office
+example:
+  $ref: '../examples/candidate.yaml'

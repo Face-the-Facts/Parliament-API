@@ -1,0 +1,2 @@
+candidateRequest:
+  $ref: './candidateRequest.yaml'

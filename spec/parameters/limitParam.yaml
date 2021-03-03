@@ -1,0 +1,8 @@
+name: limit
+in: query
+description: Limits the number of items on a page
+required: false
+style: form
+explode: true
+schema:
+  type: integer

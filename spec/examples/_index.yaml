@@ -1,0 +1,9 @@
+candidatesExample:
+  value:
+    $ref: './candidates.yaml'
+candidateExample:
+  value:
+    $ref: './candidate.yaml'
+electionSystemExample:
+  value:
+    $ref: './election_system.yaml'

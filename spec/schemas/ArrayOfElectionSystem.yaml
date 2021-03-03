@@ -1,0 +1,6 @@
+type: array
+description: Array of election systems
+items:
+  $ref: './ElectionSystem.yaml'
+example:
+  $ref: '../examples/election_systems.yaml'
