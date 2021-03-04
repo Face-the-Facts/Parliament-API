@@ -49,15 +49,19 @@ tags:
   - name: Poll
     description: |
       everything about polls
+  - name: Polities
+    description: |
+      Request for polity related resources, incl. elections and parliaments
 x-tagGroups:
   - name: Main
     tags:
       - Candidates
       - Parties
       - Controversies
-  - name: Parliament
+  - name: Polities
     tags:
       - Poll
+      - Polities
   - name: Elections
     tags:
       - Election
@@ -292,91 +296,63 @@ paths:
         '404':
           $ref: '#/components/responses/404Error'
   /parties:
-    get:
+    head:
+      operationId: headParties
+      summary: Request headers for parties
+      description: HEAD request for parties
       tags:
         - Parties
-      description: Returns a collection of Parties
-      operationId: getParties
-      parameters:
-        - name: partyId
-          in: query
-          description: The ID of the Political Party to return
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: integer
       responses:
         '200':
           description: OK
-          content:
-            'application/json:':
-              schema:
-                $ref: '#/components/schemas/Party'
-    post:
+    get:
+      operationId: getParties
+      summary: Retrieve a list of parties
+      description: Returns a collection of Parties
       tags:
         - Parties
-      description: Create a new Candidate
+      parameters:
+        - $ref: '#/components/parameters/partyLabelQueryParam'
+      responses:
+        '200':
+          $ref: '#/components/responses/200Parties'
+    post:
       operationId: postParty
+      summary: Create a new party
+      description: Create a new party with the posted request body
+      tags:
+        - Parties
       requestBody:
-        description: Political party to be added
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Party'
-        required: true
+        $ref: '#/components/requestBodies/partyRequest'
       responses:
         '201':
           $ref: '#/components/responses/201Created'
-    head:
-      tags:
-        - Parties
-      description: HEAD request for parties
-      operationId: headParties
-      responses:
-        '200':
-          description: OK
-  '/parties/{id}':
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
+  '/parties/{partyId}':
     get:
       tags:
         - Parties
       description: Returns a Political Party by ID
       operationId: getParty
       parameters:
-        - name: id
+        - name: partyId
           in: path
-          description: The ID of the Political Party to return
+          description: ID of the party to be filtered by
           required: true
-          style: simple
-          explode: false
+          explode: true
           schema:
             type: integer
       responses:
         '200':
-          description: OK
-          content:
-            'application/json:':
-              schema:
-                $ref: '#/components/schemas/Party'
-          links:
-            GetPartyMembers:
-              operationId: GetCandidatesByParty
-              parameters:
-                politicalParty: $response.body#/id
+          $ref: '#/components/responses/200Party'
     put:
       tags:
         - Parties
       description: Replace a Party
       operationId: putParty
       parameters:
-        - name: id
-          in: path
-          description: The ID of the Political Party to return
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: integer
+        - $ref: '#/paths/~1parties~1%7BpartyId%7D/get/parameters/0'
       requestBody:
         description: Optional description in *Markdown*
         content:
@@ -387,47 +363,20 @@ paths:
       responses:
         '201':
           $ref: '#/components/responses/201Created'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
     delete:
       tags:
         - Parties
       description: Delete a Party
       operationId: deleteParty
       parameters:
-        - name: id
-          in: path
-          description: The ID of the Political Party to return
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: integer
+        - $ref: '#/paths/~1parties~1%7BpartyId%7D/get/parameters/0'
       responses:
         '201':
           $ref: '#/components/responses/201Created'
-    patch:
-      tags:
-        - Parties
-      description: Partially update a Party
-      operationId: patchParty
-      parameters:
-        - name: id
-          in: path
-          description: The ID of the Political Party to return
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: integer
-      requestBody:
-        description: Optional description in *Markdown*
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Party'
-        required: true
-      responses:
-        '201':
-          $ref: '#/components/responses/201Created'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
 components:
   parameters:
     limitParam:
@@ -457,6 +406,15 @@ components:
       explode: true
       schema:
         type: integer
+    partyLabelQueryParam:
+      name: partyLabel
+      in: query
+      description: Label of the party to be filtered by
+      required: false
+      style: form
+      explode: true
+      schema:
+        type: string
     candidateIdQueryParam:
       name: candidateId
       in: query
@@ -707,6 +665,13 @@ components:
   responses:
     400Error:
       description: Bad Request
+    401Unauthorized:
+      description: API key is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+          example: Add www-authenticate header
     404Error:
       description: The specified resource was not found.
     201Created:
@@ -728,7 +693,8 @@ components:
           example:
             $ref: '#/components/examples/candidateExample/value'
       links:
-        - $ref: '#/components/links/GetCandidateParty'
+        getCandidateParty:
+          $ref: '#/components/links/GetCandidateParty'
     200Candidates:
       description: Successfully returned a list of candidates
       content:
@@ -742,6 +708,25 @@ components:
               $ref: '#/components/examples/candidatesExample/value'
           example:
             $ref: '#/components/examples/candidatesExample/value'
+    200Party:
+      description: OK
+      content:
+        'application/json:':
+          schema:
+            $ref: '#/components/schemas/Party'
+      links:
+        GetPartyMembers:
+          operationId: GetCandidatesByParty
+          parameters:
+            politicalParty: $response.body#/id
+    200Parties:
+      description: OK
+      content:
+        'application/json:':
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Party'
   examples:
     candidatesExample:
       value:
@@ -786,6 +771,13 @@ components:
             $ref: '#/components/schemas/Candidate'
           example:
             $ref: '#/components/examples/candidateExample/value'
+    partyRequest:
+      description: Political party to be added
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Party'
+      required: true
   securitySchemes:
     BearerAuth:
       type: http
