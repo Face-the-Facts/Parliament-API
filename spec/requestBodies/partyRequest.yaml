@@ -1,0 +1,6 @@
+description: Political party to be added
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/Party.yaml'
+required: true

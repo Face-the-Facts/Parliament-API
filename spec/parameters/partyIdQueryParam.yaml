@@ -1,0 +1,8 @@
+name: partyId
+in: query
+description: ID of the party to be filtered by
+required: false
+style: form
+explode: true
+schema:
+  type: integer

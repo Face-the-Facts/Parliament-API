@@ -1,9 +1,29 @@
 openapi: 3.0.0
 info:
   title: Face the Facts API
-  description: Face the Facts API
+  description: |
+    For this sample, you can use the api key `special-key` to test the authorization filters.
+    # Introduction
+    This is the Face the Facts API. It's main purpose is to provide the data for our web application at facethefacts.app.
+    It may also be used by anyone interested in accordance with [insert license]
+    # OpenAPI Specification
+    This API is documented in **OpenAPI format**.
+    # Cross-Origin Resource Sharing
+    This API features Cross-Origin Resource Sharing (CORS) implemented in compliance with  [W3C spec](https://www.w3.org/TR/cors/).
+    And that allows cross-domain communication from the browser.
+    All responses have a wildcard same-origin which makes them completely public and accessible to everyone, including any code on any site.
+    # Authentication
+    All data is world readable. Write access is restricted to admins.
+
+    Admin access can be gained through the following forms of authentication:
+      - API Key
+      - HTTP Bearer Authentication
+    <!-- ReDoc-Inject: <security-definitions> -->
   contact:
     email: fabi@facethefacts.app
+  x-logo:
+    url: 'https://facethefacts.github.io/open-api/logo_light.png'
+    altText: Face the Facts logo
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -13,15 +33,40 @@ servers:
   description: SwaggerHub API Auto Mocking
 tags:
 - name: Candidates
-  description: Everything about candidates
-- name: Parties
-  description: Everything about parties
+  description: |
+    Everything about candidates
+- name: Controversies
+  description: Request for the controversy resource
 - name: Constituencies
-  description: Everything about constituencies
-- name: Poll
-  description: everything about polls
+  description: |
+    Everything about constituencies
 - name: Election
-  description: Requests concerning elections.
+  description: |
+    Requests concerning elections.
+- name: Parties
+  description: |
+    Everything about parties
+- name: Poll
+  description: |
+    everything about polls
+- name: Polities
+  description: |
+    Request for polity related resources, incl. elections and parliaments
+x-tagGroups:
+  - name: Main
+    tags:
+      - Candidates
+      - Parties
+      - Controversies
+  - name: Polities
+    tags:
+      - Poll
+      - Polities
+  - name: Elections
+    tags:
+      - Election
+      - Constituencies
+
 paths:
   /candidates:
     $ref: './paths/candidates.yaml'
@@ -31,10 +76,46 @@ paths:
     $ref: './paths/elections/elections.yaml'
   /elections/{id}:
     $ref: './paths/elections/election.yaml'
+  /elections/systems:
+    $ref: './paths/elections/electoral_systems.yaml'
   /parties:
     $ref: './paths/parties.yaml'
-  /parties/{id}:
+  /parties/{partyId}:
     $ref: './paths/party.yaml'
+  # /polities/{polityId}/periods/{periodId}:
+  #   get:
+  #     operationId: getPolityPeriods
+  #     tags:
+  #       - Polities
+  #     responses:
+  #       "200":
+  #         description: OK  
+  # /polities/{polityId}/elections/{electionYear}:
+  #   get:
+  #     operationId: getPolityElections
+  #     tags:
+  #       - Polities
+  #     responses:
+  #       "200":
+  #         description: OK
+  # /polities/{polityId}/elections/{electionYear}/candidacies:
+  #   get:
+  #     operationId: getPolityElections
+  #     tags:
+  #       - Polities
+  #     responses:
+  #       "200":
+  #         description: OK  
+  # /polls/{pollId}/votes/{id}:
+  #   get:
+  #     operationId: getVotes
+  #     tags:
+  #       - Poll
+  #     responses:
+  #       "200":
+  #         description: OK
+  # /parties/{id}/candidates:
+  #   $ref: './paths/candidates.yaml'
 components:
   parameters:
     $ref: "./parameters/_index.yaml"
@@ -42,15 +123,15 @@ components:
     $ref: "./schemas/_index.yaml"
   responses:
     $ref: "./responses/_index.yaml"
-  # examples:
-  #   $ref: "./examples/_index.yaml"
+  examples:
+    $ref: "./examples/_index.yaml"
   # callbacks:
   #   $ref: "./callbacks/_index.yaml"
   # headers:
   #   $ref: "./headers/_index.yaml"
-  # links:
-  #   $ref: "./links/_index.yaml"
-  # requestBodies:
-  #   $ref: "./requestBodies/_index.yaml"
-  # securitySchemes:
-  #   $ref: "./securitySchemes/_index.yaml"
+  links:
+    $ref: "./links/_index.yaml"
+  requestBodies:
+    $ref: "./requestBodies/_index.yaml"
+  securitySchemes:
+    $ref: "./securitySchemes/_index.yaml"

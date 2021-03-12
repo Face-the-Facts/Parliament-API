@@ -1,8 +1,20 @@
-"400Error":
+400Error:
   $ref: './400Error.yaml'
-"404Error":
+401Unauthorized:
+  $ref: './401Unauthorized.yaml'
+404Error:
   $ref: './404NotFound.yaml'
-"201Created":
+201Created:
   $ref: './201Created.yaml'
-"200OK":
+204NoContent:
+  $ref: './204NoContent.yaml'
+200OK:
   description: OK
+200Candidate:
+  $ref: './200Candidate.yaml'
+200Candidates:
+  $ref: './200Candidates.yaml'
+200Party:
+  $ref: './200Party.yaml'
+200Parties:
+  $ref: './200Parties.yaml'

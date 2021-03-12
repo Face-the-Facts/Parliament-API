@@ -1,0 +1,10 @@
+description: OK
+content:
+  'application/json:':
+    schema:
+      $ref: '../schemas/Party.yaml'
+links:
+  GetPartyMembers:
+    operationId: GetCandidatesByParty
+    parameters:
+      politicalParty: $response.body#/id

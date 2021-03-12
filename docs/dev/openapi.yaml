@@ -329,7 +329,7 @@ paths:
           $ref: '#/components/responses/201Created'
         '401':
           $ref: '#/components/responses/401Unauthorized'
-  '/parties/{id}':
+  '/parties/{partyId}':
     get:
       tags:
         - Parties
@@ -339,8 +339,7 @@ paths:
         - name: partyId
           in: path
           description: ID of the party to be filtered by
-          required: false
-          style: form
+          required: true
           explode: true
           schema:
             type: integer
@@ -353,14 +352,7 @@ paths:
       description: Replace a Party
       operationId: putParty
       parameters:
-        - name: id
-          in: path
-          description: The ID of the Political Party to return
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: integer
+        - $ref: '#/paths/~1parties~1%7BpartyId%7D/get/parameters/0'
       requestBody:
         description: Optional description in *Markdown*
         content:
@@ -371,79 +363,20 @@ paths:
       responses:
         '201':
           $ref: '#/components/responses/201Created'
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
     delete:
       tags:
         - Parties
       description: Delete a Party
       operationId: deleteParty
       parameters:
-        - name: id
-          in: path
-          description: The ID of the Political Party to return
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: integer
+        - $ref: '#/paths/~1parties~1%7BpartyId%7D/get/parameters/0'
       responses:
         '201':
           $ref: '#/components/responses/201Created'
-    patch:
-      tags:
-        - Parties
-      description: Partially update a Party
-      operationId: patchParty
-      parameters:
-        - name: id
-          in: path
-          description: The ID of the Political Party to return
-          required: true
-          style: simple
-          explode: false
-          schema:
-            type: integer
-      requestBody:
-        description: Optional description in *Markdown*
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Party'
-        required: true
-      responses:
-        '201':
-          $ref: '#/components/responses/201Created'
-  '/polities/{polityId}/periods/{periodId}':
-    get:
-      operationId: getPolityPeriods
-      tags:
-        - Polities
-      responses:
-        '200':
-          description: OK
-  '/polities/{polityId}/elections/{electionYear}':
-    get:
-      operationId: getPolityElections
-      tags:
-        - Polities
-      responses:
-        '200':
-          description: OK
-  '/polities/{polityId}/elections/{electionYear}/candidacies':
-    get:
-      operationId: getPolityElections
-      tags:
-        - Polities
-      responses:
-        '200':
-          description: OK
-  '/polls/{pollId}/votes/{id}':
-    get:
-      operationId: getVotes
-      tags:
-        - Poll
-      responses:
-        '200':
-          description: OK
+        '401':
+          $ref: '#/components/responses/401Unauthorized'
 components:
   parameters:
     limitParam:
@@ -738,8 +671,7 @@ components:
         WWW_Authenticate:
           schema:
             type: string
-          example:
-            value: Add www-authenticate header
+          example: Add www-authenticate header
     404Error:
       description: The specified resource was not found.
     201Created:
@@ -761,7 +693,8 @@ components:
           example:
             $ref: '#/components/examples/candidateExample/value'
       links:
-        - $ref: '#/components/links/GetCandidateParty'
+        getCandidateParty:
+          $ref: '#/components/links/GetCandidateParty'
     200Candidates:
       description: Successfully returned a list of candidates
       content:

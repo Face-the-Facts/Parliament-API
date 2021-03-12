@@ -1,0 +1,3 @@
+operationId: getParty
+parameters:
+  partyId: $response.body#/party

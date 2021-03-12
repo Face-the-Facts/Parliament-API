@@ -1,3 +1,4 @@
+description: Political Party
 required:
 - id
 type: object
@@ -9,4 +10,3 @@ properties:
   name:
     type: string
     example: CDU/CSU
-description: Political Party

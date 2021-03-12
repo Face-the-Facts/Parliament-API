@@ -1,0 +1,4 @@
+candidateRequest:
+  $ref: './candidateRequest.yaml'
+partyRequest:
+  $ref: './partyRequest.yaml'

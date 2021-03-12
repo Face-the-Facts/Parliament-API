@@ -1,0 +1,10 @@
+description: OK
+content:
+  'application/json:':
+    schema:
+      $ref: '../schemas/Candidate.yaml'
+    example:
+      $ref: '../examples/candidate.yaml'
+links:
+  getCandidateParty: 
+    $ref: '../links/getCandidateParty.yaml'

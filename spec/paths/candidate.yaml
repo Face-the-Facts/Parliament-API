@@ -1,30 +1,69 @@
 get:
   tags:
   - Candidates
+  summary: Retrieve a single candidate
   description: Returns a candidate by ID
   operationId: getCandidate
   parameters:
-  - name: id
-    in: path
-    description: The ID of the candidate to return
-    required: true
-    style: simple
-    explode: false
-    schema:
-      type: integer
+    - $ref: '../parameters/candidateIdPathParam.yaml'
   responses:
     "200":
-      description: OK
-      content:
-        'application/json:':
-          schema:
-            $ref: '../schemas/Candidate.yaml'
-      links:
-        GetCandidateParty:
-          operationId: getParty
-          parameters:
-            partyId: $response.body#/party
+      $ref: '../responses/200Candidate.yaml'
     "400":
       $ref: '../responses/400Error.yaml'
     "404":
       $ref: '../responses/404NotFound.yaml'
+  x-codeSamples:
+    - lang: 'TypeScript'
+      source: |
+        // add typescript code sample
+put:
+  tags:
+  - Candidates
+  summary: Update a candidate
+  description: Updates the specified candidate based on request body
+  operationId: putCandidate
+  security:
+    - ApiKeyAuth:
+        - write
+    - BearerAuth:
+        - write
+  parameters:
+    - $ref: '../parameters/candidateIdPathParam.yaml'
+  requestBody:
+    $ref: '../requestBodies/candidateRequest.yaml'
+  responses:
+    "200":
+      $ref: '../responses/200Candidate.yaml'
+    "400":
+      $ref: '../responses/400Error.yaml'
+    "404":
+      $ref: '../responses/404NotFound.yaml'
+  x-codeSamples:
+    - lang: 'TypeScript'
+      source: |
+        // add typescript code sample
+delete:
+  tags:
+  - Candidates
+  summary: Delete a candidate
+  description: Delete the specified candidate
+  operationId: deleteCandidate
+  security:
+    - ApiKeyAuth:
+        - write
+    - BearerAuth:
+        - write
+  parameters:
+    - $ref: '../parameters/candidateIdPathParam.yaml'
+  responses:
+    "204":
+      $ref: '../responses/204NoContent.yaml'
+    "400":
+      $ref: '../responses/400Error.yaml'
+    "404":
+      $ref: '../responses/404NotFound.yaml'
+  x-codeSamples:
+    - lang: 'TypeScript'
+      source: |
+        // add typescript code sample

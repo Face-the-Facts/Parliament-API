@@ -1,21 +1,21 @@
 get:
   tags:
-  - Candidates
-  summary: Retrieve a list of candidates
-  description: Returns a list of candidates
-  operationId: getCandidates
+  - Controversies
+  summary: Retrieve a list of controversies
+  description: Returns a list of controversies
+  operationId: getControversies
   parameters:
   - $ref: '../parameters/limitParam.yaml'
   - $ref: '../parameters/offsetParam.yaml'
-  - $ref: '../parameters/partyIdQueryParam.yaml'
+  - $ref: '../parameters/candidateIdQueryParam.yaml'
   responses:
     "200":
-      $ref: '../responses/200Candidates.yaml'
+      $ref: '../responses/200Controversies.yaml'
     "400":
       $ref: '../responses/400Error.yaml'
 post:
   tags:
-  - Candidates
+  - Controversies
   summary: Add a new candidate
   description: Create a new candidate in the database
   operationId: postCandidate

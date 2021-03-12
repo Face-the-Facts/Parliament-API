@@ -1,44 +1,33 @@
-get:
+head:
+  operationId: headParties
+  summary: Request headers for parties
+  description: HEAD request for parties
   tags:
   - Parties
-  description: Returns a collection of Parties
-  operationId: getParties
-  parameters:
-  - name: partyId
-    in: query
-    description: The ID of the Political Party to return
-    required: false
-    style: form
-    explode: true
-    schema:
-      type: integer
   responses:
     "200":
-      description: OK
-      content:
-        'application/json:':
-          schema:
-            $ref: '../schemas/Party.yaml'
-post:
+      $ref: '../responses/200OK.yaml'
+get:
+  operationId: getParties
+  summary: Retrieve a list of parties
+  description: Returns a collection of Parties
   tags:
   - Parties
-  description: Create a new Candidate
+  parameters:
+    - $ref: "../parameters/partyLabelQueryParam.yaml"
+  responses:
+    "200":
+      $ref: '../responses/200Parties.yaml'
+post:
   operationId: postParty
+  summary: Create a new party
+  description: Create a new party with the posted request body
+  tags:
+  - Parties
   requestBody:
-    description: Political party to be added
-    content:
-      application/json:
-        schema:
-          $ref: '../schemas/Party.yaml'
-    required: true
+    $ref: '../requestBodies/partyRequest.yaml'
   responses:
     "201":
       $ref: '../responses/201Created.yaml'
-head:
-  tags:
-  - Parties
-  description: HEAD request for parties
-  operationId: headParties
-  responses:
-    "200":
-      description: OK
+    "401":
+      $ref: '../responses/401Unauthorized.yaml'

@@ -5,9 +5,11 @@
   "main": "index.js",
   "scripts": {
     "build": "swagger-cli bundle spec/openapi.yaml --outfile docs/openapi.yaml --type yaml",
-    "test": "npm run build && spectral lint docs/openapi.yaml",
-    "preview": "npm run build && redoc-cli serve docs/openapi.yaml --options.onlyRequiredInSamples",
+    "build-dev": "swagger-cli bundle spec/openapi.yaml --outfile docs/dev/openapi.yaml --type yaml",
+    "test": "spectral lint spec/openapi.yaml",
+    "start": "redoc-cli serve spec/openapi.yaml --watch ",
     "html": "npm run build && redoc-cli bundle docs/openapi.yaml  --output docs/index.html --options.onlyRequiredInSamples",
+    "html-dev": "npm run build-dev && redoc-cli bundle docs/dev/openapi.yaml  --output docs/dev/index.html --options.onlyRequiredInSamples",
     "clean": "rm -r docs",
     "deploy": "./ci/deploy.sh"
   },

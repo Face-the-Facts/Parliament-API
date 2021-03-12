@@ -4,40 +4,17 @@ get:
   description: Returns a Political Party by ID
   operationId: getParty
   parameters:
-  - name: id
-    in: path
-    description: The ID of the Political Party to return
-    required: true
-    style: simple
-    explode: false
-    schema:
-      type: integer
+  - $ref: '../parameters/partyIdPathParam.yaml'
   responses:
     "200":
-      description: OK
-      content:
-        'application/json:':
-          schema:
-            $ref: '../schemas/Party.yaml'
-      links:
-        GetPartyMembers:
-          operationId: GetCandidatesByParty
-          parameters:
-            politicalParty: $response.body#/id
+      $ref: '../responses/200Party.yaml'
 put:
   tags:
   - Parties
   description: Replace a Party
   operationId: putParty
   parameters:
-  - name: id
-    in: path
-    description: The ID of the Political Party to return
-    required: true
-    style: simple
-    explode: false
-    schema:
-      type: integer
+  - $ref: '../parameters/partyIdPathParam.yaml'
   requestBody:
     description: Optional description in *Markdown*
     content:
@@ -48,44 +25,17 @@ put:
   responses:
     "201":
       $ref: '../responses/201Created.yaml'
+    "401":
+      $ref: '../responses/401Unauthorized.yaml'
 delete:
   tags:
   - Parties
   description: Delete a Party
   operationId: deleteParty
   parameters:
-  - name: id
-    in: path
-    description: The ID of the Political Party to return
-    required: true
-    style: simple
-    explode: false
-    schema:
-      type: integer
+    - $ref: '../parameters/partyIdPathParam.yaml'
   responses:
     "201":
       $ref: '../responses/201Created.yaml'
-patch:
-  tags:
-  - Parties
-  description: Partially update a Party
-  operationId: patchParty
-  parameters:
-  - name: id
-    in: path
-    description: The ID of the Political Party to return
-    required: true
-    style: simple
-    explode: false
-    schema:
-      type: integer
-  requestBody:
-    description: Optional description in *Markdown*
-    content:
-      application/json:
-        schema:
-          $ref: '../schemas/Party.yaml'
-    required: true
-  responses:
-    "201":
-      $ref: '../responses/201Created.yaml'
+    "401":
+      $ref: '../responses/401Unauthorized.yaml'

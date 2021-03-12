@@ -1,0 +1,2 @@
+GetCandidateParty:
+  $ref: './getCandidateParty.yaml'

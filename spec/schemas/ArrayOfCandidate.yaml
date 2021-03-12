@@ -1,0 +1,7 @@
+type: array
+description: Array of Candidates
+items:
+  $ref: './Candidate.yaml'
+example:
+  $ref: '../examples/candidates.yaml'
+
